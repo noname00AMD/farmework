@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport"
+        content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+
+    <!-- for google -->
+    <link rel="canonical" href="https://www.hosting.kr">
+    <meta name="robots" content="all">
+    <meta name="googlebot" content="all">
+    <meta name="google-site-verification" content="IEQdCO8M3OHxVHlGTxrht0K1Hq9rYB-qnVAgKP_G8VE">
+    <link rel="search" type="application/opensearchdescription+xml"
+        href="//static.hostingcdn.net/20210811/js/provider.xml" title="anh gai xinh moi nhat">
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-MB45R3G"></script>
+
+    <!-- for facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.hosting.kr">
+    <meta property="og:title" content="글로벌 IT 파트너 - 호스팅케이알(HK)">
+    <meta property="og:image" content="//static.hostingcdn.net/20210811/resources/images/og_thumb_logo.png">
+    <meta property="og:description" content="기업/공공도메인, 도메인연결/웹호스팅 무료, 서버, 아마존클라우드(AWS), G Suite, 홈페이지제작 1644-7378">
+
+    <!-- for twitter -->
+    <meta name="twitter:card" content="//static.hostingcdn.net/20210811/resources/images/mo_thumb_logo.png">
+
+    <!-- for PWA -->
+    <link rel="apple-touch-icon" href="/favicon.ico">
+
+
+    <!-- for SEO -->
+    <meta name="keywords" content=" gai trung, gai nhat , ao dai , mini skirt,  tin tuc gai xinh">
+    <meta name="description" content="chuyen trang gai xinh nhat , gai xinh sexy">
+    <meta name="dcterms.creator" content=" do hong">
+    <meta name="dcterms.title" content=" album playboy v12 ">
+    <meta name="dcterms.publisher" content="playboy thailan">
+    <meta name="dcterms.date" content=" 26/8/2021">
+    <meta name="dcterms.language" content=" en">
+    <meta name="dcterms.subject" content="this page url">
+    <meta name="dcterms.description" content=" full album sexy cua ngoc trinh">
+
+    <link rel="manifest" href="/manifest.json">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <title>
+        <%= title %>
+    </title>
+    <meta name="theme-color" content="#20c4ab">
+    <meta name="format-detection" content="telephone=yes,date=no,address=yes,email=yes,url=yes" />
+    <link rel='stylesheet' href='/css/home.css' />
+
+    <!-- for devlopment only -->
+    <link  type="application/json" href='/css/home.css.map' />
+
+
+</head>
+
+<body>
+    <!-- <div class="cont-fluid" >
+        <div class="r">
+            <div class="c-md-12" style="background-color: brown;height: 25px;font-size: 25px;">cont fluid</div>
+        </div>
+    </div> 
+    <script>
+        window.onload= function(){
+            var elms = document.getElementsByClassName("c-md-12")
+            for(var i =0 ; i < elms.length ; i++){
+                elms[i].innerHTML = elms[i].offsetWidth
+            }
+        }
+    </script>
+    <div class="cont" style="font-size: 25px;">
+        <div class="r">
+            <div class="c-md-12" style="background-color: cadetblue;height: 25px;font-size: 25px;">cont</div>
+        </div>
+    </div> 
+    <div class="sm-cont" style="font-size: 25px;">
+        <div class="r">
+            <div class="c-md-12" style="background-color: violet;height: 25px;font-size: 25px;">sm cont </div>
+        </div>
+    </div> -->
+    <header>
+        <%- include('./components/header', {category : {}}) %>
+        
+    </header>
+    
+
+    <main class="main">
+        <section class="banner">
+            <div class="sm-cont">
+                <div class="g-row-5">
+                    <style>
+                    
+                    </style>
+                    <div class="col-md-3" style="background-color: aliceblue;width: 100%;">
+                    1
+                    </div>
+                    <div class="start-md-4 col-md-6 row-md-2" style="background-color: aqua;">
+                    2
+                    </div>
+                    <div class="start-md-10 col-md-3 row-md-5" style="background-color: azure;">
+                    3
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <%- include('./components/footer') %>
+
+    </footer>
+    <button type="submit">test fecth</button>
+    <script>
+        var data = new Request("http://localhost:5001/test",{
+            method: "POST"
+        })
+        var btn = document.getElementsByTagName("button")
+            btn[0].addEventListener("click",function(ev){
+            fetch(data)
+            .then(response => response.json())
+            .then(result=>{
+                console.log(result)
+            })
+            .catch(err=>{
+                console.log(JSON.stringify( err))
+            })
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+$grid-breakpoints: ( xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px) !default
+$container-max-widths: ( sm: 100%, md: 720px, lg: 960px, xl: 1140px, xxl: 1320px) !default
+$small-container-max-widths: ( sm: 100%, md: 648px, lg: 912px, xl: 1050px, xxl: 1240px) !default
+$columns-12: 12 !default
+$rows-10: 10 !default
+$gap: 10px !default
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints)
+    $min: map-get($breakpoints, $name)
+    @return if($min != 0, $min, null) // retun xxx px if xs return null
+
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints)
+    @return  "-#{$name}"// return -sm
+
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints)
+    $min: breakpoint-min($name, $breakpoints)
+    @if $min
+        @media (min-width: $min)
+            @content
+    @else
+        @content
+
+@mixin make-responesive-container($container-max-widths,$sm-container-max-widths ,$breakpoints)
+    @each $breakpoint in map-keys($breakpoints)
+        @include media-breakpoint-up($breakpoint, $grid-breakpoints)
+            .cont
+                max-width: map-get($container-max-widths , $breakpoint)
+            .sm-cont
+                max-width: map-get($sm-container-max-widths , $breakpoint)
+
+@mixin make-rows($rows)
+    @for $i from 1 through $rows-10
+        >.g-row-#{$i}
+            --g-row: #{$i}
+
+@mixin make-grid-in-rows($columns: $columns-12, $rows: $rows-10 , $breakpoints: $grid-breakpoints)
+    @each $breakpoint in map-keys($breakpoints)
+        $infix: breakpoint-infix($breakpoint, $breakpoints)
+        @include media-breakpoint-up($breakpoint, $breakpoints)
+            @if $columns & $rows
+                @for $i from 1 through $columns-12
+                    .col#{$infix}-#{$i}, .col-#{$i}
+                        --col: #{$i}
+                    .start#{$infix}-#{$i},.start-#{$i}
+                        --start: #{$i}
+                    .row#{$infix}-#{$i},.row-#{$i}
+                        --in-rows: #{$i}
+
+@mixin in-base-breakpoint($breakpoints : $grid-breakpoints , $rows : $rows-10)
+    @each $breakpoint in map-keys($breakpoints)
+        $infix: breakpoint-infix($breakpoint, $breakpoints)
+        $min: breakpoint-min($breakpoint, $breakpoints)
+        @if $min != null
+            // only  write in xs and no xs breakpoint
+            $selector: null
+            $selector1: null
+            @for $i from 1 through $columns-12
+                $selector: $selector + ".col#{$infix}-#{$i},"
+                $selector1: $selector + ".row#{$infix}-#{$i},"
+               
+            // #{$selector1}
+                // --in-row: 1 
+         
+:root
+    --span: 1
+    --col: 12
+    --in-rows: auto
+    --gap-x: #{$gap}
+    --gap-y: #{$gap}
+    --g-row: 1
+    --columns: #{$columns-12}
+.sm-cont , .cont , .cont-fluid
+    width: 100%
+    padding-right: var(--gap-x)
+    padding-left: var(--gap-x)
+    margin-right: auto
+    margin-left: auto
+    [class*=g-row-]
+        // grid-row: var(--g-row)
+        display: grid
+        grid-row-gap: var(--gap-y)
+        grid-column-gap: var(--gap-x)
+        grid-template-rows: repeat(var(--g-row))
+        grid-template-columns: repeat(var(--columns),1fr)
+
+        [class*=col-]
+            grid-column: var(--start , auto) /span var(--col, auto)
+            border:1px black dotted
+            grid-row: var(--in-rows)
+    @include make-rows($rows-10)
+@include make-responesive-container($container-max-widths ,$small-container-max-widths,$grid-breakpoints)
+
+@include in-base-breakpoint()
+
+@include make-grid-in-rows()
+.w-100
+    width: 100%
+.d-none
+    display: none

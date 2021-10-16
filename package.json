@@ -1,0 +1,22 @@
+{
+  "name": "expsssssssss",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.mjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.27.5",
+    "ejs": "^3.1.6",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "nodemon": "^2.0.12",
+    "path-to-regexp": "^6.2.0",
+    "sass": "^1.41.1"
+  }
+}
