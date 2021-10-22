@@ -1,4 +1,3 @@
-'use strict'
 // debugger;
 import "./config.mjs"
 import app from './app.mjs'
@@ -13,11 +12,11 @@ var server = http.createServer({
     insecureHTTPParser: false,
     maxHeaderSize: 16384 // 16kb
 } , app);
+
 server.listen(port, '0.0.0.0');
 server.on('error', onError);
 server.on('listening', onListening);
-
-
+server.requestTimeout = 8000 // req >8s server will return 408 code
 
 function onError(error) {
     if (error.syscall !== 'listen') {

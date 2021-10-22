@@ -34,3 +34,4 @@ process.env.EMAIL_SERVER_LOGIN = "noname00.1994@gmail.com";
 process.env.EMAIL_SERVER_PASS = "";
 process.env.EMAIL_SERVER_PORT = 2365;
 // console.log(process.env);
+

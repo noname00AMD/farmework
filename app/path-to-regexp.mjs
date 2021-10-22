@@ -1,4 +1,13 @@
 export default function (path, keys, opts = {}) {
+    var sensitive = opts.sensitive || true
+    var strict = opts.strict || false ,
+        start = opts.start || true ,
+        end = opts.end ||true ,
+        encode = opts.encode || function (x) { return x; } 
+    var endsWith = "[" + escapeString(opts.endsWith || "") + "]|$";
+    var delimiter = "[" + escapeString(opts.delimiter || "/#?") + "]";
+    var route = start ? "^" : "";
+
     var tokens = [];
     var i = 0;
     while (i < path.length) {
@@ -83,23 +92,21 @@ export default function (path, keys, opts = {}) {
     }
     tokens.push({ type: "END", index: i, value: "" });
 
-
-
-    var _a = opts.prefixes, prefixes = _a === void 0 ? "./" : _a;
+    var prefixes = opts.prefixes === void 0 ? "./" : opts.prefixes;
     var defaultPattern = "[^" + escapeString(opts.delimiter || "/#?") + "]+?";
     var result = [];
     var key = 0;
     var str = "";
-    i = 0;
+    var y = 0;
     var tryConsume = function (type) {
-        if (i < tokens.length && tokens[i].type === type)
-            return tokens[i++].value;
+        if (y < tokens.length && tokens[y].type === type)
+            return tokens[y++].value;
     };
     var mustConsume = function (type) {
         var value = tryConsume(type);
         if (value !== undefined)
             return value;
-        var _a = tokens[i], nextType = _a.type, index = _a.index;
+        var _a = tokens[y], nextType = _a.type, index = _a.index;
         throw new TypeError("Unexpected " + nextType + " at " + index + ", expected " + type);
     };
     var consumeText = function () {
@@ -110,7 +117,7 @@ export default function (path, keys, opts = {}) {
         }
         return result;
     };
-    while (i < tokens.length) {
+    while (y < tokens.length) {
         var char = tryConsume("CHAR");
         var name = tryConsume("NAME");
         var pattern = tryConsume("PATTERN");
@@ -121,7 +128,7 @@ export default function (path, keys, opts = {}) {
                 prefix = "";
             }
             if (str) {
-                result.push(path);
+                result.push(str);
                 str = "";
             }
             result.push({
@@ -138,8 +145,8 @@ export default function (path, keys, opts = {}) {
             str += value;
             continue;
         }
-        if (path) {
-            result.push(path);
+        if (str) {
+            result.push(str);
             str = "";
         }
         var open = tryConsume("OPEN");
@@ -162,18 +169,6 @@ export default function (path, keys, opts = {}) {
     }
 
 
-    var _a = opts.strict,
-        strict = _a === void 0 ? false : _a,
-        _b = opts.start,
-        start = _b === void 0 ? true : _b,
-        _c = opts.end,
-        end = _c === void 0 ? true : _c,
-        _d = opts.encode,
-        encode = _d === void 0 ? function (x) { return x; } : _d;
-
-    var endsWith = "[" + escapeString(opts.endsWith || "") + "]|$";
-    var delimiter = "[" + escapeString(opts.delimiter || "/#?") + "]";
-    var route = start ? "^" : "";
     // Iterate over the tokens and create our regexp string.
     for (var _i = 0, tokens_1 = result; _i < tokens_1.length; _i++) {
         var token = tokens_1[_i];
@@ -228,5 +223,5 @@ function escapeString(str) {
     return str.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
 }
 function flags(opts) {
-    return opts && opts.sensitive ? "" : "i";
+    return opts.sensitive ? "i" : "";
 }

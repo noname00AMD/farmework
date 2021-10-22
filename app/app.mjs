@@ -1,4 +1,4 @@
-"use strict";
+ 
 import Debug from "./debug.mjs"
 import Router from "./router/router.mjs"
 import request from "./request.mjs"

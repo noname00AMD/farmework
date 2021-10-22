@@ -1,4 +1,3 @@
-'use strict'
 
 import Debug from './debug.mjs'
 import path from 'path'
